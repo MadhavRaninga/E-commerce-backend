@@ -1,5 +1,5 @@
 const express = require("express");
-const { isAuth } = require("../middleware/isAuth");
+const { isAdminAuth } = require("../middleware/isAuth");
 const { isAdmin } = require("../middleware/isAdmin");
 const {
   adminLogin,
@@ -15,10 +15,10 @@ const router = express.Router();
 router.post("/login", adminLogin);
 
 // Protected admin APIs
-router.get("/stats", isAuth, isAdmin, getAdminStats);
-router.get("/users", isAuth, isAdmin, getAllUsers);
-router.put("/users/:id", isAuth, isAdmin, updateUserByAdmin);
-router.get("/orders", isAuth, isAdmin, getAllOrdersAdmin);
+router.get("/stats", isAdminAuth, isAdmin, getAdminStats);
+router.get("/users", isAdminAuth, isAdmin, getAllUsers);
+router.put("/users/:id", isAdminAuth, isAdmin, updateUserByAdmin);
+router.get("/orders", isAdminAuth, isAdmin, getAllOrdersAdmin);
 
 module.exports = router;
 
