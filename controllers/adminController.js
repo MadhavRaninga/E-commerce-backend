@@ -25,9 +25,14 @@ exports.adminLogin = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid Password" });
     }
-
-    const token = generateToken(user._id, res);
     const safeUser = await User.findById(user._id); // without password
+
+    res.cookie("adminToken", token, {
+      httpOnly: true,
+      secure: true,        // REQUIRED (Cloudflare + Render)
+      sameSite: "none",    // REQUIRED (cross-domain)
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       message: "Admin login Successfully.",
