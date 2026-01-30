@@ -14,18 +14,16 @@ const app = express()
 dotenv.config()
 
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "http://localhost:5174",
-        "https://e-commerce-frontend-3cj.pages.dev",
-        "https://e-commerce-admin-85v.pages.dev"
+        "https://your-frontend.onrender.com",
+        "https://your-admin.onrender.com"
     ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-}))
+    credentials: true
+}));
 app.use("/api/user", userRoutes)
 app.use("/api/products", productRoutes)
 app.use("/api/cart", cartRoutes)
@@ -34,6 +32,6 @@ app.use("/api/admin", adminRoutes)
 app.use("/api/bootstrap", bootstrapRoutes)
 
 connectDB()
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT, () => {
     console.log(`Server is Working on : ${process.env.PORT}`);
 })
