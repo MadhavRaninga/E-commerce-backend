@@ -19,8 +19,8 @@ app.use(cookieParser())
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://your-frontend.onrender.com",
-        "https://your-admin.onrender.com"
+        "e-commerce-frontend-3cj.pages.dev",
+        "e-commerce-admin-85v.pages.dev"
     ],
     credentials: true
 }));
