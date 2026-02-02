@@ -22,7 +22,8 @@ app.use(cors({
         "https://e-commerce-frontend-3cj.pages.dev",
         "e-commerce-admin-85v.pages.dev"
     ],
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use("/api/user", userRoutes)
 app.use("/api/products", productRoutes)
