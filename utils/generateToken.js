@@ -15,7 +15,7 @@ exports.generateToken = (id, res) => {
     ),
     httpOnly: true,
     secure: true, 
-    sameSite: "none"
+    sameSite: "None"
   }
 
   res.cookie("token", token, options)
