@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
+const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateToken");
 
 exports.adminLogin = async (req, res) => {
@@ -25,14 +26,24 @@ exports.adminLogin = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid Password" });
     }
-    const safeUser = await User.findById(user._id); // without password
+
+    // Create a dedicated admin JWT and cookie
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: process.env.JWT_EXPIRE }
+    );
 
     res.cookie("adminToken", token, {
       httpOnly: true,
-      secure: true,        // REQUIRED (Cloudflare + Render)
-      sameSite: "none",    // REQUIRED (cross-domain)
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: true,        // HTTPS only (Render + Cloudflare)
+      sameSite: "none",    // cross-site cookies for admin domain
+      maxAge:
+        Number(process.env.COOKIE_EXPIRE || 7) *
+        24 * 60 * 60 * 1000,
     });
+
+    const safeUser = await User.findById(user._id); // without password
 
     return res.status(200).json({
       message: "Admin login Successfully.",
