@@ -20,7 +20,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://e-commerce-frontend-3cj.pages.dev",
-        "e-commerce-admin-85v.pages.dev"
+        "https://e-commerce-admin-85v.pages.dev"
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
