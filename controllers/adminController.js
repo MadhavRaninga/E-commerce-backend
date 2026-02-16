@@ -43,7 +43,7 @@ exports.adminLogin = async (req, res) => {
         24 * 60 * 60 * 1000,
     });
 
-    const safeUser = await User.findById(user._id); // without password
+    const safeUser = await User.findById(user._id); 
 
     return res.status(200).json({
       message: "Admin login Successfully.",

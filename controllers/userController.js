@@ -1,7 +1,6 @@
 const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const OTP = require("../models/otpModel")
-
 const { generateToken } = require("../utils/generateToken")
 const { sendOtp } = require("../utils/sendOtp")
 exports.registration = async (req, res) => {
